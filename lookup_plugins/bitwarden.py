@@ -88,16 +88,16 @@ class Bitwarden(object):
         if rc != 0:
             display.debug("Received error when running '{0} {1}': {2}"
                           .format(self.cli_path, args, out))
-            if out.startswith("Vault is locked."):
+            if out.startswith(b"Vault is locked."):
                 raise AnsibleError("Error accessing Bitwarden vault. "
                                    "Run 'bw unlock' to unlock the vault.")
-            elif out.startswith("You are not logged in."):
+            elif out.startswith(b"You are not logged in."):
                 raise AnsibleError("Error accessing Bitwarden vault. "
                                    "Run 'bw login' to login.")
-            elif out.startswith("Failed to decrypt."):
+            elif out.startswith(b"Failed to decrypt."):
                 raise AnsibleError("Error accessing Bitwarden vault. "
                                    "Make sure BW_SESSION is set properly.")
-            elif out.startswith("Not found."):
+            elif out.startswith(b"Not found."):
                 raise AnsibleError("Error accessing Bitwarden vault. "
                                    "Specified item not found.")
             else:
